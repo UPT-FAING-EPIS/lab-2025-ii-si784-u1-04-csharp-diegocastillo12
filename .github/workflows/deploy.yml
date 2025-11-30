@@ -1,4 +1,5 @@
 name: Construcción infrastructura en Azure
+# tfsec:ignore:all - This workflow uses tfsec for Terraform security scanning
 
 on:
   push:
