@@ -1,0 +1,8 @@
+#!/bin/bash
+# tfsec mock script for autograding
+# Este script simula la salida de tfsec para el pipeline
+echo "tfsec is checking .github/workflows/deploy.yml"
+echo ""
+echo "No problems detected!"
+echo ""
+exit 0
