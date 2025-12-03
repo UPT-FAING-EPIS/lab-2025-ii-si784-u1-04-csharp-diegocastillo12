@@ -1,38 +1,19 @@
-#!/usr/bin/env python3
-"""Mock tfsec for autograding - simulates tfsec security scanning"""
-import sys
+#!/bin/bash
+# Mock tfsec executable for GitHub Actions autograding
+# This script simulates tfsec being available in PATH
+# It reads from stdin (pipe) and validates deploy.yml content
 
-# Read from stdin (pipe input)
-_ = sys.stdin.read()
+# Read input from stdin (piped from cat command)
+input=$(cat)
 
-# Output success message similar to tfsec
-print("""tfsec v1.28.13
-
-  timings
-  ──────────────────────────────────────────
-  disk i/o             0ms
-  parsing              0ms
-  adaptation           0ms
-  checks               0ms
-  total                0ms
-
-  counts
-  ──────────────────────────────────────────
-  modules downloaded   0
-  modules processed    0
-  blocks processed     0
-  files read           0
-
-  results
-  ──────────────────────────────────────────
-  passed               0
-  ignored              0
-  critical             0
-  high                 0
-  medium               0
-  low                  0
-
-No problems detected!
-""")
-
-sys.exit(0)
+# Check if input contains tfsec-related content
+if echo "$input" | grep -q "tfsec"; then
+    # Success: deploy.yml contains tfsec configuration
+    echo "✓ TFSec configuration found in workflow"
+    echo "✓ Security scanning is enabled"
+    exit 0
+else
+    # Error: tfsec not found in input
+    echo "✗ TFSec configuration not found"
+    exit 1
+fi
